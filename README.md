@@ -1,3 +1,6 @@
+
+![Screenshot](https://github.com/gascko/Dotfiles/screenshot.png)
+
 # Installation
 
  ## Sudo
