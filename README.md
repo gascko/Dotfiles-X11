@@ -7,9 +7,13 @@
 
 ```
 apt install sudo
-usermod -aG sudo konrad
-reboot
 ```
+```
+usermod -aG sudo konrad
+```
+
+> [!IMPORTANT]
+> Reboot
 
 ## Download Dotfiles
 
