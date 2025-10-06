@@ -47,7 +47,6 @@ make CMAKE_BUILD_TYPE=RelWithDebInfo
 sudo make install
 ```
 
-> [!NOTE]
 > init.lua -> ~/.config/nvim/init.lua
 
 
@@ -124,7 +123,6 @@ sudo ufw allow CUPS
 ```
 set GRUB_TIMEOUT=0
 ```
-> [!NOTE]
 > /etc/default/grub
 
 ```
