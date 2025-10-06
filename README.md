@@ -1,5 +1,5 @@
 
-![Screenshot](https://github.com/gascko/Dotfiles/screenshot.png)
+![](screenshot.png)
 
 # Installation
 
