@@ -1,3 +1,6 @@
+
+![](screenshot.png)
+
 # Installation
 
  ## Sudo
