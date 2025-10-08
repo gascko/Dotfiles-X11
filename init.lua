@@ -242,8 +242,7 @@ vim.diagnostic.config({
     }
 })
 
-vim.cmd("colorscheme habamax")
+vim.cmd("colorscheme retrobox")
 
 vim.api.nvim_set_hl(0, "WinSeparator", { bg = "NONE" })
 vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
