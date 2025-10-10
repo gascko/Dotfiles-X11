@@ -26,6 +26,9 @@ reboot
 ```
 git clone https://github.com/gascko/Dotfiles.git ~/
 ```
+```
+cp ~/Dotfiles/.* ~/
+```
 
 ## Packages
 
@@ -91,12 +94,6 @@ cp ~/Dotfiles/config_dmenu.h ~/.config/suckless/dmenu/config.h
 
 > [!NOTE]
 > sudo make install for all
-
-## Copy files
-
-```
-cp ~/Dotfiles/.* ~/
-```
 
 ## Touchpad
 
