@@ -3,6 +3,9 @@
 
 # Installation
 
+> [!NOTE]
+> Setup is running Debian minimal installattion with [Debian Netinstaller](https://www.debian.org/CD/netinst/)
+
  ## Sudo
 
 > [!NOTE]
@@ -59,52 +62,6 @@ sudo make install
 cp init.lua ~/.config/nvim/init.lua
 ```
 
-### Plugins
-
-```
-mkdir -p ~/.config/nvim/pack/lspconfig/start/
-```
-```
-mkdir -p ~/.config/nvim/pack/LuaSnip/start/
-```
-```
-mkdir -p ~/.config/nvim/pack/cmp/start/
-```
-```
-mkdir -p ~/.config/nvim/pack/cmp_luasnip/start/
-```
-
-```
-git clone https://github.com/neovim/nvim-lspconfig  ~/.config/nvim/pack/lspconfig/start/
-```
-```
-git clone https://github.com/L3MON4D3/LuaSnip.git ~/.config/nvim/pack/LuaSnip/start/
-```
-```
-git clone https://github.com/hrsh7th/cmp-buffer.git ~/.config/nvim/pack/cmp/start/
-```
-```
-git clone https://github.com/hrsh7th/cmp-cmdline.git ~/.config/nvim/pack/cmp/start/
-```
-```
-git clone https://github.com/hrsh7th/cmp-nvim-lsp.git ~/.config/nvim/pack/cmp/start/
-```
-```
-git clone https://github.com/hrsh7th/cmp-path.git ~/.config/nvim/pack/cmp/start/
-```
-```
-git clone https://github.com/hrsh7th/nvim-cmp.git ~/.config/nvim/pack/cmp/start/
-```
-```
-git clone https://github.com/saadparwaiz1/cmp_luasnip.git ~/.config/nvim/pack/cmp_luasnip/start/
-```
-
-## Zsh
-
-```
-chsh -s /usr/bin/zsh
-```
-
 ## Suckless
 
 ```
@@ -123,14 +80,23 @@ git clone https://git.suckless.org/slock ~/.config/suckless
 cp ~/Dotfiles/dwm.c ~/.config/suckless/dwm/
 ```
 ```
-cp ~/Dotfiles/config.h ~/.config/suckless/dwm/
+cp ~/Dotfiles/config_dwm.h ~/.config/suckless/dwm/config.h
 ```
 ```
 cp -r ~/Dotfiles/scripts/ ~/.config/suckless/dwm/
 ```
+```
+cp ~/Dotfiles/config_dmenu.h ~/.config/suckless/dmenu/config.h
+```
 
 > [!NOTE]
 > sudo make install for all
+
+## Copy files
+
+```
+cp ~/Dotfiles/.* ~/
+```
 
 ## Touchpad
 
