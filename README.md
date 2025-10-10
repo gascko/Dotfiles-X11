@@ -71,13 +71,13 @@ cp init.lua ~/.config/nvim/init.lua
 mkdir .config/suckless
 ```
 ```
-git clone https://git.suckless.org/dmenu ~/.config/suckless
+git clone https://git.suckless.org/dmenu ~/.config/suckless/dmenu
 ```
 ```
-git clone https://git.suckless.org/dwm ~/.config/suckless
+git clone https://git.suckless.org/dwm ~/.config/suckless/dwm
 ```
 ```
-git clone https://git.suckless.org/slock ~/.config/suckless
+git clone https://git.suckless.org/slock ~/.config/suckless/slock
 ```
 ```
 cp ~/Dotfiles/dwm.c ~/.config/suckless/dwm/
