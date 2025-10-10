@@ -1,55 +1,34 @@
 -- ########## SETTINGS ##########
 
--- Completion
-vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
-
 -- Encoding always utf-8
 vim.opt.encoding = 'utf-8'
-
--- Don't make noise
-vim.cmd([[set noerrorbells]])
-
--- Show cursorline
-vim.opt.cursorline = true
 
 -- Tab Settings
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
-
--- Width for autoindents
-vim.opt.shiftwidth = 4
-
--- Show Tabs
 vim.opt.showtabline = 1
+vim.opt.shiftwidth = 4
 
 -- Cursor 
 vim.opt.guicursor = 'a:ver25'
 
--- Convert Tab to whitespace
-vim.opt.expandtab = true
-
 -- Autoindent on new line
 vim.opt.smartindent = true
 
--- Show line number
+-- Line Number & Cursor Line & Sign Column
 vim.opt.relativenumber = true
+vim.opt.cursorline = true
 vim.opt.number = true
+vim.opt.signcolumn = 'yes'
 
--- Don't wrap text on new line
-vim.cmd([[set nowrap]])
-
--- Disable creating swap file
-vim.cmd([[set noswapfile]])
-
--- Don't make Backups
-vim.cmd([[set nobackup]])
-vim.cmd([[set nowritebackup]])
+-- Don't wrap text
+vim.wo.wrap = false
 
 -- Start scrolling if Cursor is n blocks away from top/bottom
 vim.opt.scrolloff = 10
 
 -- Use system clipboard
-vim.cmd([[set clipboard=unnamed]])
+vim.opt.clipboard = "unnamed"
 
 -- Incremental search
 vim.opt.incsearch = true
@@ -57,20 +36,15 @@ vim.opt.incsearch = true
 -- Stop highlighting if word search /WORD ends
 vim.cmd([[set nohlsearch]])
 
--- Don't remeber last state
-vim.cmd([[set viminfo=]]) 
-
 -- Faster Completion
 vim.opt.updatetime = 500
 
--- Column for signs
-vim.opt.signcolumn = 'yes'
-
--- Command-line completion mode
-vim.opt.wildmode = { 'list', 'longest' }
+-- Completion
+vim.opt.wildmode = { "noselect:lastused", "full" }
+vim.opt.wildoptions = "pum"
 
 -- Statusline
-vim.cmd([[set laststatus=0]]) 
+vim.opt.laststatus = 0
 
 -- ########## KEYMAPPINGS ##########
 
@@ -111,18 +85,28 @@ vim.keymap.set('n', '<C-b>', ':tabnext<CR>')
 -- Remap S-C-b to switch Tabs
 vim.keymap.set('n', '<S-b>', ':tabprevious<CR>')
 
--- remap C-n to create new Tab (File)
+-- Remap C-n to create new Tab (File)
 vim.keymap.set('n', '<C-n>', ':tabnew<CR>')
+
+-- Remap C-space to open Omnicompletion
+vim.keymap.set('i', '<C-Space>', '<C-x><C-o>')
+
+-- ########## PLUGINS ##########
+
+vim.pack.add{
+  { src = 'https://github.com/neovim/nvim-lspconfig' },
+  { src = 'https://github.com/dasupradyumna/midnight.nvim' },
+}
 
 -- ########## AUTOCOMMANDS ##########
 
 function FoldingMethod()
     filetype = vim.fn.expand('%:p'):match("^.+(%..+)$")
     filetypes = { ".sh", ".c", ".py", ".js" }
-    vim.cmd([[set foldmethod=manual]])
+    vim.opt.foldmethod = "manual"
     for n = 1, #filetypes do
         if filetypes[n] == filetype then
-            vim.cmd([[set foldmethod=indent]])
+            vim.opt.foldmethod = "indent"
         end
     end
 end
@@ -130,119 +114,42 @@ end
 local augroup = vim.api.nvim_create_augroup('Autocommands', {clear = true})
 vim.api.nvim_create_autocmd('BufReadPost', {group = augroup, command = "execute 'lua FoldingMethod()'"})
 vim.api.nvim_create_autocmd('CursorHold', {group = augroup, command = "execute 'lua vim.diagnostic.open_float()'" })
-
--- ########## CMP / LSP ##########
-
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-  vim.lsp.handlers.hover, {
-    border = "single"
-  }
-)
-
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-  vim.lsp.handlers.signature_help, {
-    border = "single"
-  }
-)
-
-local luasnip = require('luasnip')
-local cmp = require('cmp')
-
-cmp.setup({
-    snippet = { expand = function(args) require('luasnip').lsp_expand(args.body) end },
-    window = { 
-        completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered()
-    },
-    mapping = {     
-        ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
-                luasnip.expand_or_jhmp()
-            else
-                fallback()
-            end
-    end, { "i", "s" }),
-    
- 
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-            cmp.select_prev_item()
-        elseif luasnip.jumpable(-1) then
-            luasnip.jump(-1)
-        else
-            fallback()
-        end
-    end, { "i", "s" }),
-    
-    ['<C-y>'] = cmp.config.disable,
-    ['<esc>'] = cmp.mapping({ 
-        i = cmp.mapping.abort(), 
-        c = cmp.mapping.close()
-    }),    
-
-    ['<CR>'] = cmp.mapping.confirm({ select = false }),
-    
-    },
-    confirm_opts = { behavior = cmp.ConfirmBehavior.Replace, select = true },
-    formatting = {
-        fields = { cmp.ItemField.Abbr, cmp.ItemField.Kind },
-        format = function(entry, vim_item)
-            vim_item.kind = ""
-            vim_item.menu = ""
-            return vim_item end 
-    },
-    completion = {
-        get_trigger_characters = function(trigger_characters)
-            return vim.tbl_filter(function(char)
-                return char ~= ' '
-            end, trigger_characters)
-    end
-  },
-    sources = { { name = "nvim_lua" }, { name = "nvim_lsp" }, { name = "path" }, { name = "luasnip" }, { name = "buffer" } },
-})
-
-cmp.setup.cmdline('/', { mapping = cmp.mapping.preset.cmdline(), sources = { { name = 'buffer' } }  })
-cmp.setup.cmdline(':', { mapping = cmp.mapping.preset.cmdline(), sources = { { name = 'cmdline' } } })
-
-local on_attach = function(client, bufnr)
-    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-
-    local opts = { noremap=true, silent=true }
-    buf_set_keymap('n', '<s-e>', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-    buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', 'gh', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-end
+vim.api.nvim_create_autocmd('CmdlineChanged', {group = augroup, command = 'call wildtrigger()'})
 
 -- ########## LSP ##########
 
-require('lspconfig').pyright.setup{on_attach = on_attach}
-require('lspconfig').clangd.setup{on_attach = on_attach}
+vim.lsp.config('clangd', {cmd={'clangd'}})
+vim.lsp.enable('clangd')
 
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(ev)
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_completion) then
+      vim.opt.completeopt = { 'menu', 'menuone', 'noinsert', 'fuzzy', 'popup' }
+      vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+      vim.keymap.set('n', 'gD', function()
+          vim.lsp.buf.declaration()
+      end)
+      vim.keymap.set('n', 'gd', function()
+          vim.lsp.buf.definition()
+      end)
+      vim.keymap.set('n', 'gi', function()
+          vim.lsp.buf.implementation()
+      end)
+       vim.keymap.set('n', 'gh', function()
+          vim.lsp.buf.hover()
+      end)
+       vim.keymap.set('n', 'gr', function()
+          vim.lsp.buf.references()
+      end)
+    end
+  end,
+})
 -- ########## DIAGNOSTICS ##########
 
-vim.diagnostic.config({ 
-    virtual_text = false, 
-    signs = true,
-    underline = true,
-    update_in_insert = false,
-    severity_sort = true,
-    float = { 
-        focusable = false,
-        style = "minimal",
-        border = "rounded",
-        source = "always",
-        header = "",
-        prefix = ""
-    }
+vim.diagnostic.config({
+  virtual_lines = {
+    current_line = true,
+  },
 })
-
-vim.cmd("colorscheme retrobox")
-
-vim.api.nvim_set_hl(0, "WinSeparator", { bg = "NONE" })
-vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
+vim.cmd("colorscheme midnight")
