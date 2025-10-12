@@ -21,6 +21,12 @@ usermod -aG sudo konrad
 reboot
 ```
 
+## Packages
+
+```
+xargs sudo apt -y install < ~/Dotfiles/packages
+```
+
 ## Dotfiles
 
 ```
@@ -28,12 +34,6 @@ git clone https://github.com/gascko/Dotfiles.git ~/
 ```
 ```
 cp ~/Dotfiles/.* ~/
-```
-
-## Packages
-
-```
-xargs sudo apt -y install < ~/Dotfiles/packages
 ```
 
  ## Network
