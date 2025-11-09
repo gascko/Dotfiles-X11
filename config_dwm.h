@@ -15,8 +15,8 @@ static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-    [SchemeNorm] = { "#fefefe", "#070605", "#070605" },
-    [SchemeSel]  = { "#070605", "#fefefe", "#fefefe" },
+    [SchemeNorm] = { "#eeeeee", "#101010", "#555555" },
+    [SchemeSel]  = { "#eeeeee", "#101010", "#eeeeee" },
 };
 
 /* tagging */
@@ -59,13 +59,13 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *termcmd[]  = { "xterm", "-fa", "DejaVu Sans Mono", "-fs", "10", NULL };
+static const char *termcmd[]  = { "xterm", "-fa", "DejaVu Sans Mono", "-fs", "10", "-fg", "#eeeeee", "-bg", "#101010", NULL };
 static const char *lockcmd[]        = { "slock", NULL };
 static const char *vol_upcmd[]      = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+10%", NULL };
 static const char *vol_downcmd[]    = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-10%", NULL };
 static const char *vol_mutecmd[]    = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "toggle", NULL };
 static const char *powercmd[]       = { "/home/konrad/.config/suckless/dwm/scripts/powermenu.sh", NULL };
-static const char *dmenucmd[] = { "dmenu_run", "-fn", "#fefefe", "-nb", "#070605", "-sb", "#fefefe", "-sf", "#070605", NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-nf", "#aaaaaa", "-nb", "#101010", "-sb", "#101010", "-sf", "#eeeeee", NULL };
 static const char *mon_cmd[]        = { "/home/konrad/.config/suckless/dwm/scripts/monitor.sh", NULL };
 static const char *bright_upcmd[]   = { "brightnessctl", "-d", "*", "-c", "backlight", "set", "+10%", NULL };
 static const char *bright_downcmd[] = { "brightnessctl", "-d", "*", "-c", "backlight", "set", "10%-", NULL };

@@ -5,7 +5,6 @@ blueman
 fuse
 libfuse2
 make
-feh
 libxrandr-dev
 xorg
 libfontconfig-dev

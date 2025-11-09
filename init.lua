@@ -95,7 +95,6 @@ vim.keymap.set('i', '<C-Space>', '<C-x><C-o>')
 
 vim.pack.add{
   { src = 'https://github.com/neovim/nvim-lspconfig' },
-  { src = 'https://github.com/dasupradyumna/midnight.nvim' },
 }
 
 -- ########## AUTOCOMMANDS ##########
@@ -148,8 +147,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- ########## DIAGNOSTICS ##########
 
 vim.diagnostic.config({
-  virtual_lines = {
-    current_line = true,
-  },
+  virtual_lines = false
 })
-vim.cmd("colorscheme midnight")
+
+vim.cmd("colorscheme default")
