@@ -4,7 +4,7 @@
 # Installation
 
 > [!NOTE]
-> Setup is running Debian minimal installattion with [Debian Netinstaller](https://www.debian.org/CD/netinst/)
+> Setup installed with [Debian Netinstaller](https://www.debian.org/CD/netinst/)
 
  ## Sudo
 
