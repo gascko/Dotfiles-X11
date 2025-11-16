@@ -1,6 +1,3 @@
-
-![](screenshot.png)
-
 # Installation
 
 > [!NOTE]
