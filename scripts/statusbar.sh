@@ -7,35 +7,38 @@ battery() {
 
     if [[ $status == "Charging" || $status1 == "Charging" ]]; then
         symbol="\uf0e7"
-    fi
-
-    if [[ $percent -gt 80 ]]; then
-        symbol="\uf240"
-    elif [[ $percent -gt 60 ]]; then
-        symbol="\uf241"
-    
-    elif [[ $percent -gt 40 ]]; then
-        symbol="\uf242"
-    
-    elif [[ $percent -gt 20 ]]; then
-        symbol="\uf243"
     else
-        symbol="\uf244"
-    fi 
+
+		if [[ $percent -gt 80 ]]; then
+			symbol="\uf240"
+		elif [[ $percent -gt 60 ]]; then
+			symbol="\uf241"
+		
+		elif [[ $percent -gt 40 ]]; then
+			symbol="\uf242"
+		
+		elif [[ $percent -gt 20 ]]; then
+			symbol="\uf243"
+		else
+			symbol="\uf244"
+		fi 
+	fi
 
     echo -n -e $symbol
 }
 
 wifi() {
-    connectivity="$(nmcli networking connectivity)"
+	wifiRadio="$(nmcli radio wifi)"
 
-    if [[ $connectivity == "none" || $connectivity == "unknown" ]]; then
-        symbol="\uf072"
-    elif [[ $connectivity == "portal" || $connectivity == "limited" ]]; then
-        symbol="\uf015"
-    else
-        symbol="\uf1eb"
-    fi
+	if [[ $wifiRadio == "enabled" ]]; then
+		connectivity="$(nmcli networking connectivity)"
+
+		if [[ ! $connectivity == "none" ]]; then
+			symbol="\uf1eb"
+		fi
+	else
+		symbol="\uf072"
+	fi
 
     echo -n -e $symbol
 }
