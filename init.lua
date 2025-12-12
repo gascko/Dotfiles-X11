@@ -88,6 +88,8 @@ vim.keymap.set('n', '<S-b>', ':tabprevious<CR>')
 -- Remap C-n to create new Tab (File)
 vim.keymap.set('n', '<C-n>', ':tabnew<CR>')
 
+-- ********* INSERT MODE **********
+
 -- Remap C-space to open Omnicompletion
 vim.keymap.set('i', '<C-Space>', '<C-x><C-o>')
 
@@ -112,7 +114,7 @@ end
 
 local augroup = vim.api.nvim_create_augroup('Autocommands', {clear = true})
 vim.api.nvim_create_autocmd('BufReadPost', {group = augroup, command = "execute 'lua FoldingMethod()'"})
-vim.api.nvim_create_autocmd('CursorHold', {group = augroup, command = "execute 'lua vim.diagnostic.open_float()'" })
+vim.api.nvim_create_autocmd('CursorHold', {group = augroup, command = "execute 'lua vim.diagnostic.open_float()'"})
 vim.api.nvim_create_autocmd('CmdlineChanged', {group = augroup, command = 'call wildtrigger()'})
 
 -- ########## LSP ##########
