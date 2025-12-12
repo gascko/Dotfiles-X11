@@ -3,14 +3,12 @@
 
 static int topbar = 1;                      /* -b  option; if 0, dmenu appears at bottom     */
 /* -fn option overrides fonts[0]; default X11 font or font set */
-static const char *fonts[] = {
-	"monospace:size=10"
-};
+static const char *fonts[] = {"monospace:size=10"};
 static const char *prompt      = NULL;      /* -p  option; prompt to the left of input field */
 static const char *colors[SchemeLast][2] = {
 	/*     fg         bg       */
-    [SchemeNorm] = { "#fefefe", "#070605", "#070605" },
-    [SchemeSel]  = { "#070605", "#fefefe", "#fefefe" },
+    [SchemeNorm] = { "#eeeeee", "#101010", "#eeeeee" },
+    [SchemeSel]  = { "#101010", "#eeeeee", "#eeeeee" },
 };
 /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
 static unsigned int lines      = 0;
