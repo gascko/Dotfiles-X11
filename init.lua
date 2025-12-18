@@ -1,8 +1,5 @@
 -- ########## SETTINGS ##########
 
--- Encoding always utf-8
-vim.opt.encoding = 'utf-8'
-
 -- Tab Settings
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -36,15 +33,14 @@ vim.opt.incsearch = true
 -- Stop highlighting if word search /WORD ends
 vim.cmd([[set nohlsearch]])
 
--- Faster Completion
-vim.opt.updatetime = 500
-
--- Completion
-vim.opt.wildmode = { "noselect:lastused", "full" }
-vim.opt.wildoptions = "pum"
-
 -- Statusline
 vim.opt.laststatus = 0
+
+-- Completion
+vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
+
+-- Fold all files if possible
+vim.opt.foldmethod = "indent"
 
 -- ########## KEYMAPPINGS ##########
 
@@ -88,45 +84,23 @@ vim.keymap.set('n', '<S-b>', ':tabprevious<CR>')
 -- Remap C-n to create new Tab (File)
 vim.keymap.set('n', '<C-n>', ':tabnew<CR>')
 
--- ********* INSERT MODE **********
-
--- Remap C-space to open Omnicompletion
-vim.keymap.set('i', '<C-Space>', '<C-x><C-o>')
-
 -- ########## PLUGINS ##########
 
 vim.pack.add{
+  { src = 'https://github.com/nvim-mini/mini.completion' },
   { src = 'https://github.com/neovim/nvim-lspconfig' },
 }
 
--- ########## AUTOCOMMANDS ##########
-
-function FoldingMethod()
-    filetype = vim.fn.expand('%:p'):match("^.+(%..+)$")
-    filetypes = { ".sh", ".c", ".py", ".js" }
-    vim.opt.foldmethod = "manual"
-    for n = 1, #filetypes do
-        if filetypes[n] == filetype then
-            vim.opt.foldmethod = "indent"
-        end
-    end
-end
-
-local augroup = vim.api.nvim_create_augroup('Autocommands', {clear = true})
-vim.api.nvim_create_autocmd('BufReadPost', {group = augroup, command = "execute 'lua FoldingMethod()'"})
-vim.api.nvim_create_autocmd('CursorHold', {group = augroup, command = "execute 'lua vim.diagnostic.open_float()'"})
-vim.api.nvim_create_autocmd('CmdlineChanged', {group = augroup, command = 'call wildtrigger()'})
-
 -- ########## LSP ##########
 
-vim.lsp.config('clangd', {cmd={'clangd'}})
+require('mini.completion').setup()
+
 vim.lsp.enable('clangd')
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
     if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_completion) then
-      vim.opt.completeopt = { 'menu', 'menuone', 'noinsert', 'fuzzy', 'popup' }
       vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
       vim.keymap.set('n', 'gD', function()
           vim.lsp.buf.declaration()
@@ -146,10 +120,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
   end,
 })
+
 -- ########## DIAGNOSTICS ##########
 
-vim.diagnostic.config({
-  virtual_lines = false
-})
+vim.diagnostic.config {
+  virtual_text = {true, virt_text_pos = 'eol'},
+  underline = true,
+  update_in_insert = true,
+}
 
 vim.cmd("colorscheme default")
