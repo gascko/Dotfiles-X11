@@ -25,7 +25,7 @@ vim.wo.wrap = false
 vim.opt.scrolloff = 10
 
 -- Use system clipboard
-vim.opt.clipboard = "unnamed"
+vim.opt.clipboard = "unnamedplus"
 
 -- Incremental search
 vim.opt.incsearch = true
