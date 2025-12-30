@@ -20,30 +20,10 @@ usermod -aG sudo konrad
 reboot
 ```
 
-## Pinning
-
-```
-echo "deb http://deb.debian.org/debian testing main contrib non-free" | sudo tee -a /etc/apt/sources.list
-```
-
-```
-sudo cp ~/Dotfiles/preferences /etc/apt/preferences
-```
-
-```
-sudo apt update
-```
-
-> [!NOTE]
-> Check Release Name of **Stable** and **Testing** [Debian Release](https://www.debian.org/releases/) 
-
 ## Packages
 
 ```
 xargs sudo apt -y install < ~/Dotfiles/packages
-```
-```
-xargs sudo apt -y install -t forky < ~/Dotfiles/pinning
 ```
 
 ## Dotfiles
@@ -55,7 +35,26 @@ git clone https://github.com/gascko/Dotfiles.git ~/
 cp ~/Dotfiles/.* ~/
 ```
 
- ## Network
+## Pinning
+
+```
+echo "deb http://deb.debian.org/debian testing main contrib non-free" | sudo tee -a /etc/apt/sources.list
+```
+```
+sudo cp ~/Dotfiles/preferences /etc/apt/preferences
+```
+```
+sudo apt update
+```
+
+> [!NOTE]
+> Check Release Name of **Stable** and **Testing** [Debian Release](https://www.debian.org/releases/) 
+
+```
+xargs sudo apt -y install -t forky < ~/Dotfiles/pinning
+```
+
+## Network
 
 ```
 managed=true
