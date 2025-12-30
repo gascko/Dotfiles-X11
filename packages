@@ -76,3 +76,5 @@ rsync
 epiphany-browser
 vlc
 zathura
+-t forky neovim
+-t forky texlab

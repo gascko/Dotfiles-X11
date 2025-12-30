@@ -86,10 +86,17 @@ vim.keymap.set('n', '<C-n>', ':tabnew<CR>')
 
 -- ########## PLUGINS ##########
 
-vim.pack.add{
-  { src = 'https://github.com/nvim-mini/mini.completion' },
-  { src = 'https://github.com/neovim/nvim-lspconfig' },
-}
+local deps = require("mini.deps")
+deps.setup({})
+deps.add({source = "neovim/nvim-lspconfig"})
+deps.add({source = "nvim-mini/mini.completion"})
+
+-- Build in package manager in nvim version 0.12
+
+--vim.pack.add({
+--  { src = 'https://github.com/nvim-mini/mini.completion' },
+--  { src = 'https://github.com/neovim/nvim-lspconfig' },
+--})
 
 -- ########## LSP ##########
 

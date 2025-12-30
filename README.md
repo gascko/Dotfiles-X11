@@ -20,10 +20,30 @@ usermod -aG sudo konrad
 reboot
 ```
 
+## Pinning
+
+```
+echo "deb http://deb.debian.org/debian testing main contrib non-free" | sudo tee -a /etc/apt/sources.list
+```
+
+```
+sudo cp ~/Dotfiles/preferences /etc/apt/preferences
+```
+
+```
+sudo apt update
+```
+
+> [!NOTE]
+> Check Release Name of **Stable** and **Testing** [Debian Release](https://www.debian.org/releases/) 
+
 ## Packages
 
 ```
 xargs sudo apt -y install < ~/Dotfiles/packages
+```
+```
+xargs sudo apt -y install -t forky < ~/Dotfiles/pinning
 ```
 
 ## Dotfiles
@@ -46,19 +66,10 @@ managed=true
 ## Neovim
 
 ```
-mkdir -p .config/nvim
-```
-```
-git clone https://github.com/neovim/neovim ~/.config/nvim/
-```
-```
-cd .config/nvim/neovim
-```
-```
-make CMAKE_BUILD_TYPE=RelWithDebInfo
-```
-```
-sudo make install
+mkdir -p ~/.local/share/nvim/site/pack/deps/start
+git clone https://github.com/nvim-mini/mini.deps \
+  ~/.local/share/nvim/site/pack/deps/start/mini.deps
+
 ```
 ```
 cp init.lua ~/.config/nvim/init.lua
@@ -118,7 +129,7 @@ sudo ufw allow DNS
 sudo ufw allow CUPS
 ```
 
-## GRUB
+## Grub
 
 ```
 set GRUB_TIMEOUT=0
