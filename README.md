@@ -66,10 +66,9 @@ managed=true
 
 ```
 mkdir -p ~/.local/share/nvim/site/pack/deps/start
-git clone https://github.com/nvim-mini/mini.deps \
-  ~/.local/share/nvim/site/pack/deps/start/mini.deps
-
 ```
+```
+git clone https://github.com/nvim-mini/mini.deps ~/.local/share/nvim/site/pack/deps/start/mini.deps
 ```
 cp init.lua ~/.config/nvim/init.lua
 ```

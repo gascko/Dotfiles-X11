@@ -103,6 +103,7 @@ deps.add({source = "nvim-mini/mini.completion"})
 require('mini.completion').setup()
 
 vim.lsp.enable('clangd')
+vim.lsp.enable('texlab')
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
