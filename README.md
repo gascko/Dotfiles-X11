@@ -37,6 +37,9 @@ cp ~/Dotfiles/.* ~/
 
 ## Pinning
 
+> [!NOTE]
+> Check Release Name of **Stable** and **Testing** [Debian Release](https://www.debian.org/releases/) 
+
 ```
 echo "deb http://deb.debian.org/debian testing main contrib non-free" | sudo tee -a /etc/apt/sources.list
 ```
@@ -46,10 +49,6 @@ sudo cp ~/Dotfiles/preferences /etc/apt/preferences
 ```
 sudo apt update
 ```
-
-> [!NOTE]
-> Check Release Name of **Stable** and **Testing** [Debian Release](https://www.debian.org/releases/) 
-
 ```
 xargs sudo apt -y install -t forky < ~/Dotfiles/pinning
 ```
@@ -69,6 +68,7 @@ mkdir -p ~/.local/share/nvim/site/pack/deps/start
 ```
 ```
 git clone https://github.com/nvim-mini/mini.deps ~/.local/share/nvim/site/pack/deps/start/mini.deps
+```
 ```
 cp init.lua ~/.config/nvim/init.lua
 ```
