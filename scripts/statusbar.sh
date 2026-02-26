@@ -43,25 +43,11 @@ wifi() {
 volume() {
 	volumeStatus="$(pulsemixer --get-volume | awk '{print $1}')"
 	
-	if [[ $volumeStatus -gt 80 ]]; then
+	if [[ $volumeStatus -gt 0 ]]; then
 		symbol="\uf028"
-	elif [[ $volumeStatus -gt 50 ]]; then
-		symbol="\uf027"
-	elif [[ $volumeStatus -gt 20 ]]; then
-		symbol="\uf026"
 	else
 		symbol=""
 	fi
-
-    echo -n -e "$symbol"
-}
-
-bluetooth() {
-	if bluetoothctl show | awk '/Powered/ {print $2}' | grep -q "yes"; then
-        symbol="\uf294"  # Bluetooth on
-    else
-        symbol=""
-    fi
 
     echo -n -e "$symbol"
 }
@@ -70,10 +56,8 @@ while true; do
     dateStatus=$(date +%H:%M)
     batteryStatus=$(battery)
     networkStatus=$(wifi)
-    bluetoothStatus=$(bluetooth)
 	volumeStatus=$(volume)
 
-    # Nur dann ein Symbol setzen, wenn es aktiv ist
     statusLine=""
     
 	if [[ -n $volumeStatus ]]; then
